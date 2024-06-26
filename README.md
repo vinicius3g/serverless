@@ -1,68 +1,40 @@
-<!--
-title: 'AWS NodeJS Example'
-description: 'This template demonstrates how to deploy a simple NodeJS function running on AWS Lambda using the Serverless Framework.'
-layout: Doc
-framework: v4
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, Inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Serverless CRUD API
 
-# Serverless Framework AWS NodeJS Example
+Este projeto implementa uma API CRUD (Create, Read, Update, Delete) usando Node.js, Express.js e AWS DynamoDB, com suporte a execução serverless usando AWS Lambda.
 
-This template demonstrates how to deploy a simple NodeJS function running on AWS Lambda using the Serverless Framework. The deployed function does not include any event definitions or any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which include use cases like API endpoints, workers triggered by SQS, persistence with DynamoDB, and scheduled tasks. For details about configuration of specific events, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+## Funcionalidades
 
-## Usage
+- **GET /users/:userId**: Busca um usuário pelo ID.
+- **POST /users**: Cria um novo usuário.
+- **PUT /users/:userId**: Atualiza um usuário existente.
+- **DELETE /users/:userId**: Deleta um usuário existente.
 
-### Deployment
+## Pré-requisitos
 
-In order to deploy the example, you need to run the following command:
+Antes de iniciar, certifique-se de ter o seguinte instalado:
 
-```
-serverless deploy
-```
+- Node.js (v14 ou superior)
+- npm (geralmente instalado com o Node.js)
+- Conta AWS com permissões para criar e gerenciar recursos DynamoDB e Lambda
+- AWS CLI configurado com suas credenciais AWS
 
-After running deploy, you should see output similar to:
+## Técnologias utilizadas
+- [Serveless Framework](https://www.serverless.com/) :para criaçao e integraçao de todo desenvolvimento diretamente com a AWS
 
-```
-Deploying "aws-node" to stage "dev" (us-east-1)
+- [AWS SDK for JavaScript](https://aws.amazon.com/pt/sdk-for-javascript/): fornece todas a ferrementas necessarias para o desenvolvimento no ambiente AWS
 
-✔ Service deployed to stack aws-node-dev (90s)
 
-functions:
-  hello: aws-node-dev-hello (1.5 kB)
-```
+## Instalação
 
-### Invocation
+1. **Clonar o repositório:**
 
-After successful deployment, you can invoke the deployed function by using the following command:
+   ```bash
+   git clone https://github.com/seu-usuario/serverless-crud-api.git
+   cd serverless-crud-api
 
-```
-serverless invoke --function hello
-```
-
-Which should result in response similar to the following:
-
-```json
-{
-  "statusCode": 200,
-  "body": "{\"message\":\"Go Serverless v4.0! Your function executed successfully!\"}"
-}
-```
-
-### Local development
-
-The easiest way to develop and test your function is to use the Serverless Framework's `dev` command:
-
-```
-serverless dev
-```
-
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
-
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
-
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+2. **Deploy na Aws**
+  - tenha uma conta na aws 
+  - intstale o serveless framework 
+  - vincule o server framework com sua conta aws
+  - rode um npm install
+  - rode serverless deploy --debug 
