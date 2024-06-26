@@ -1,0 +1,29 @@
+@url = ''
+# @name createEvent
+POST  `${url}/users`
+content-type: application/json
+
+{
+	"name": "Vinicius3",
+  "age": "24",
+  "position_name": "manager"
+}
+###
+
+@userId = {{ createEvent.response.body.userId }}
+
+###
+GET {{url}}/users/{{userId}}
+
+###
+PUT {{url}}/users/{{userId}}
+content-type: application/json
+
+{
+  "name": "vini",
+  "age": "24",
+  "position_name": "freeller"
+}
+
+###
+DELETE {{url}}/users/{{userId}}
