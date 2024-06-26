@@ -1,6 +1,7 @@
-@url = ''
+@url = https://trnneeb129.execute-api.us-east-1.amazonaws.com
+
 # @name createEvent
-POST  `${url}/users`
+POST  {{url}}/users
 content-type: application/json
 
 {
