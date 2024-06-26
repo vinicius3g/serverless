@@ -1,14 +1,62 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: defaultg
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
-app: serverless
-# "service" is the name of this project. This will also be added to your AWS resource names.
-service: serverless
+app: serverless-crud
+service: serverless-crud
+frameworkVersion: "4"
+
+custom:
+  tableName: "users-table-${sls:stage}"
+  esbuild:
+    bundle: true
+    minify: true  # Ativar minificação para reduzir o tamanho do pacote
+    target: "node20"  # Alvo para a versão do Node.js
 
 provider:
   name: aws
   runtime: nodejs20.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [UsersTable, Arn]
+  environment:
+    USERS_TABLE: ${self:custom.tableName}
 
 functions:
-  hello:
+  api:
     handler: handler.handler
+    events:
+      - httpApi: "*"
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}
+
+package:
+  exclude:
+    # - node_modules/**
+    - .git/**
+    - .vscode/**
+    - tests/**
+    - README.md
+    - .env
+    - .babelrc.cjs
+    - jest.config.js
+    - .http
