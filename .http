@@ -1,6 +1,6 @@
-@url = ''
+@url = https://url
 # @name createEvent
-POST  `${url}/users`
+POST  {{url}}/users
 content-type: application/json
 
 {
